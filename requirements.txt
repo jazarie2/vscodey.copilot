@@ -1,0 +1,16 @@
+# VSCodey Copilot Requirements
+# Core dependencies for running CLI Pilot without VSCode
+
+# Required dependencies for GitHub authentication
+requests>=2.25.1      # For HTTP requests and GitHub API calls
+PyGithub>=1.55        # For GitHub API interactions  
+requests-oauthlib>=1.3.0  # For OAuth authentication flow
+
+# Enhanced functionality dependencies
+rich>=10.0.0          # For enhanced terminal output and formatting
+click>=7.0            # For CLI interface
+pyyaml>=5.4.1         # For YAML configuration support
+
+# Optional but recommended
+colorama>=0.4.4       # For cross-platform colored terminal text
+prompt-toolkit>=3.0.0 # For interactive prompts

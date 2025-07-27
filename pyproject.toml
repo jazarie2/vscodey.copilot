@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vscodey-copilot"
+version = "1.0.0"
+authors = [
+    {name = "VSCodey Team", email = "contact@vscodey.dev"}
+]
+description = "CLI Pilot - GitHub Copilot Chat for Command Line"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+]
+keywords = ["copilot", "github", "ai", "chat", "cli", "vscode", "code-assistant"]
+dependencies = [
+    "requests>=2.25.1",
+    "PyGithub>=1.55",
+    "requests-oauthlib>=1.3.0",
+    "rich>=10.0.0",
+    "click>=7.0",
+    "pyyaml>=5.4.1",
+    "colorama>=0.4.4",
+    "prompt-toolkit>=3.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "mypy",
+]
+
+[project.urls]
+Homepage = "https://github.com/jazarie2/vscodey.copilot"
+"Bug Reports" = "https://github.com/jazarie2/vscodey.copilot/issues"
+"Source" = "https://github.com/jazarie2/vscodey.copilot"
+"Documentation" = "https://github.com/jazarie2/vscodey.copilot/blob/main/README.md"
+
+[project.scripts]
+vscodey-copilot = "vscodey.copilot.cli:main"
+clipilot = "vscodey.copilot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vscodey*"]
+exclude = ["tests*", "ori*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
