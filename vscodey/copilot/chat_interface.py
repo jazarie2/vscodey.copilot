@@ -6,9 +6,8 @@ import time
 import os
 import json
 import uuid
-import asyncio
 from pathlib import Path
-from typing import Any, Dict, List, Optional, AsyncIterator
+from typing import Any, Dict, List, Optional
 import subprocess
 import platform
 import requests
@@ -193,18 +192,22 @@ class CopilotTokenManager:
         self.copilot_token = None
         self.github_token = None
     
-    async def get_copilot_token(self, github_token: str) -> Optional[str]:
+    def get_copilot_token(self, github_token: str) -> Optional[str]:
         """Exchange GitHub token for Copilot token."""
         if self.copilot_token and self._is_token_valid():
             return self.copilot_token
         
         try:
             # Get Copilot token from GitHub token
+            # Note: This endpoint is internal and not publicly accessible
+            # Based on VS Code extension analysis from ori/ folder
             headers = {
                 "Authorization": f"token {github_token}",
                 "X-GitHub-Api-Version": "2025-04-01",
                 "Accept": "application/json",
-                "User-Agent": "VSCodey-Copilot/1.0"
+                "User-Agent": "copilot-chat/0.30.0",
+                "Editor-Version": "vscode/1.95.0",
+                "Editor-Plugin-Version": "copilot-chat/0.30.0"
             }
             
             response = requests.post(
@@ -464,7 +467,7 @@ class ChatInterface:
         self.github_token = None
         self.api_client = None
 
-    async def authenticate(self) -> bool:
+    def authenticate(self) -> bool:
         """Authenticate with GitHub and get Copilot token."""
         if self.verbose:
             print("🔑 Starting GitHub Copilot authentication process...")
@@ -477,7 +480,7 @@ class ChatInterface:
             return False
         
         # Step 2: Exchange for Copilot token
-        copilot_token = await self.token_manager.get_copilot_token(self.github_token)
+        copilot_token = self.token_manager.get_copilot_token(self.github_token)
         if not copilot_token:
             if self.verbose:
                 print("✗ Failed to get Copilot token - check subscription")

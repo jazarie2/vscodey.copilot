@@ -4,7 +4,6 @@ Demo script for VSCodey Copilot - Real GitHub Copilot Integration
 Demonstrates authentication and chat functionality using the actual GitHub Copilot API.
 """
 
-import asyncio
 import sys
 import os
 from pathlib import Path
@@ -15,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from vscodey.copilot import ChatInterface, CLIConfig
 
 
-async def main():
+def main():
     """Main demo function."""
     print("🤖 VSCodey Copilot - Real GitHub Copilot API Demo")
     print("=" * 50)
@@ -38,7 +37,7 @@ async def main():
     print("This will open your browser for GitHub OAuth...")
     
     try:
-        authenticated = await chat.authenticate()
+        authenticated = chat.authenticate()
         
         if not authenticated:
             print("\n❌ Authentication failed!")
@@ -156,7 +155,7 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        main()
     except KeyboardInterrupt:
         print("\n👋 Demo interrupted by user")
     except Exception as e:
